@@ -1,0 +1,862 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Credence Stuff</title>
+<style>
+/* Layout concept: editorial bespoke-tailoring site — ink cloth, chalk ivory, a single brass accent;
+   asymmetric columns, chalk-line rules, SVG fabric artwork, numbered process as real sequence. */
+:root{
+  --ink:#1a1b1e;          /* charcoal cloth */
+  --ink-2:#26282c;        /* raised panel */
+  --chalk:#f4f1ea;        /* warm ivory ground */
+  --chalk-2:#e7e2d6;      /* dim ivory */
+  --paper:#fbfaf6;        /* card ground */
+  --fg:#23242a;           /* body text on light */
+  --fg-soft:#5c5d63;      /* muted text */
+  --line:#cfc9ba;         /* chalk rule */
+  --brass:#a97d3e;        /* restrained brass accent */
+  --brass-deep:#8a6530;
+  --bg:var(--chalk);
+  --surface:var(--paper);
+  --card-line:var(--line);
+  --header-bg:rgba(244,241,234,.86);
+  --shadow:0 1px 2px rgba(26,27,30,.06), 0 10px 30px rgba(26,27,30,.07);
+  color-scheme:light;
+  --serif:"Cormorant Garamond", "Hoefler Text", Georgia, "Times New Roman", serif;
+  --sans:"Jost", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono:"Jost", ui-sans-serif, system-ui, sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#0f1011; --ink-2:#17181b;
+    --chalk:#141518; --chalk-2:#1d1f23;
+    --paper:#1b1d21; --fg:#eceadf; --fg-soft:#a7a69d;
+    --line:#3a3c42; --brass:#c79a53; --brass-deep:#a97d3e;
+    --bg:var(--chalk); --surface:var(--paper);
+    --card-line:#34363c;
+    --header-bg:rgba(20,21,24,.86);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px rgba(0,0,0,.5);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#0f1011; --ink-2:#17181b;
+  --chalk:#141518; --chalk-2:#1d1f23;
+  --paper:#1b1d21; --fg:#eceadf; --fg-soft:#a7a69d;
+  --line:#3a3c42; --brass:#c79a53; --brass-deep:#a97d3e;
+  --bg:var(--chalk); --surface:var(--paper);
+  --card-line:#34363c;
+  --header-bg:rgba(20,21,24,.86);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px rgba(0,0,0,.5);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--header-bg)}
+img{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:500;text-wrap:balance;line-height:1.05;margin:0}
+p{margin:0}
+.wrap{width:100%;max-width:1120px;margin-inline:auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--sans);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--brass);font-weight:500}
+.rule{height:1px;background:var(--line);border:0;width:100%}
+.btn{display:inline-flex;align-items:center;gap:.55em;font-family:var(--sans);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:.95em 1.7em;border-radius:1px;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:background .25s,color .25s,border-color .25s;background:none}
+.btn-primary{background:var(--ink);color:var(--chalk);border-color:var(--ink)}
+.btn-primary:hover{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn-ghost{border-color:currentColor;color:var(--fg)}
+.btn-ghost:hover{background:var(--ink);color:var(--chalk);border-color:var(--ink)}
+.btn-brass{background:var(--brass);border-color:var(--brass);color:#fff}
+.btn-brass:hover{background:var(--brass-deep);border-color:var(--brass-deep)}
+
+/* ---------- header ---------- */
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--header-bg);backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid var(--line)}
+.hd-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:76px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--fg);cursor:pointer;background:none;border:0;padding:0}
+.brand-mark{width:34px;height:34px;flex:none}
+.brand-name{font-family:var(--serif);font-size:1.5rem;letter-spacing:.02em;line-height:1}
+.brand-sub{display:block;font-family:var(--sans);font-size:.56rem;letter-spacing:.34em;text-transform:uppercase;color:var(--fg-soft);margin-top:.25em}
+.nav{display:flex;align-items:center;gap:2px}
+.nav a{font-family:var(--sans);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--fg-soft);padding:.6em .9em;border-radius:1px;cursor:pointer;transition:color .2s}
+.nav a:hover{color:var(--fg)}
+.nav a.active{color:var(--fg)}
+.nav a.active::after{content:"";display:block;height:1.5px;background:var(--brass);margin-top:.35em}
+.hd-cta{margin-left:.5rem}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:10px}
+.burger span{width:24px;height:1.6px;background:var(--fg);transition:.25s}
+.mnav{display:none;flex-direction:column;border-top:1px solid var(--line);background:var(--header-bg)}
+.mnav a{padding:1em max(22px,env(safe-area-inset-left,0px));text-decoration:none;color:var(--fg);font-family:var(--sans);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--line);cursor:pointer}
+@media(max-width:860px){
+  .nav,.hd-cta{display:none}
+  .burger{display:flex}
+  .mnav.open{display:flex}
+}
+
+/* ---------- generic section ---------- */
+section{position:relative}
+.sec{padding-block:clamp(56px,8vw,104px)}
+.sec-head{max-width:640px;display:flex;flex-direction:column;gap:1rem;margin-bottom:3rem}
+.sec-head h2{font-size:clamp(2rem,4.5vw,3.1rem)}
+.lead{font-size:1.08rem;color:var(--fg-soft);max-width:60ch}
+.dark-band{background:var(--ink);color:var(--chalk)}
+.dark-band .lead{color:#b9b7ac}
+.dark-band .eyebrow{color:var(--brass)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:var(--ink);color:var(--chalk)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center;min-height:min(78vh,640px);padding-block:clamp(48px,7vw,84px)}
+.hero h1{font-size:clamp(2.8rem,6.6vw,5.3rem);letter-spacing:.005em;color:var(--chalk)}
+.hero h1 em{font-style:italic;color:var(--brass)}
+.hero p{color:#c3c1b6;font-size:1.12rem;max-width:44ch;margin-top:1.4rem}
+.hero .eyebrow{margin-bottom:1.4rem;display:block}
+.hero-cta{display:flex;gap:.9rem;margin-top:2.2rem;flex-wrap:wrap}
+.hero-art{position:relative;min-width:0}
+.hero-fig{width:100%;height:auto;display:block;border:1px solid rgba(169,125,62,.4)}
+.hero-stats{display:flex;gap:2.4rem;margin-top:2.8rem;flex-wrap:wrap}
+.hero-stats .n{font-family:var(--serif);font-size:2.1rem;color:var(--brass);line-height:1}
+.hero-stats .l{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#9b998f;margin-top:.4em}
+@media(max-width:820px){.hero-grid{grid-template-columns:1fr;gap:2.4rem}.hero-art{order:-1;max-width:420px}}
+
+/* ---------- feature row / cards ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:center}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+@media(max-width:820px){.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr;gap:1.8rem}.grid4{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.grid4{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--card-line);padding:2rem 1.8rem;border-radius:2px;display:flex;flex-direction:column;gap:.8rem;min-width:0}
+.card h3{font-size:1.5rem}
+.card p{color:var(--fg-soft);font-size:.96rem}
+.card .ic{width:40px;height:40px;color:var(--brass);margin-bottom:.4rem}
+.swatch{aspect-ratio:1/1;border:1px solid var(--card-line);border-radius:2px;overflow:hidden}
+.swatch svg{display:block;width:100%;height:100%}
+
+/* numbered process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6rem;counter-reset:step}
+@media(max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.steps{grid-template-columns:1fr}}
+.step{display:flex;flex-direction:column;gap:.7rem}
+.step .num{font-family:var(--serif);font-size:1rem;color:var(--brass);border-top:1.5px solid var(--brass);padding-top:.7rem;letter-spacing:.1em}
+.step h3{font-size:1.25rem}
+.step p{color:var(--fg-soft);font-size:.92rem}
+.dark-band .step p{color:#b9b7ac}
+.dark-band .card{background:var(--ink-2);border-color:#34363c}
+.dark-band .card p{color:#b9b7ac}
+
+/* split image/text */
+.split-fig{width:100%;border:1px solid var(--card-line);border-radius:2px;display:block}
+
+/* quote */
+.quote{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.25;font-style:italic;max-width:20ch}
+.quote-wrap{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start}
+@media(max-width:680px){.quote-wrap{grid-template-columns:1fr}}
+.cite{font-family:var(--sans);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-soft);margin-top:1.4rem;font-style:normal}
+
+/* price / service list */
+.srv{display:flex;flex-direction:column}
+.srv-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;padding-block:1.5rem;border-bottom:1px solid var(--card-line)}
+.srv-row:first-child{border-top:1px solid var(--card-line)}
+.srv-row h3{font-size:1.5rem}
+.srv-row .desc{color:var(--fg-soft);font-size:.95rem;margin-top:.4rem;max-width:52ch}
+.srv-row .price{font-family:var(--serif);font-size:1.5rem;color:var(--brass);white-space:nowrap}
+.srv-row .price small{display:block;font-family:var(--sans);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-soft)}
+@media(max-width:560px){.srv-row{grid-template-columns:1fr}}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:1rem}
+@media(max-width:820px){.gal{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.gal{grid-template-columns:1fr}}
+.gal-item{position:relative;overflow:hidden;border:1px solid var(--card-line);border-radius:2px;background:var(--ink)}
+.gal-item svg{display:block;width:100%;height:100%}
+.gal-tall{grid-row:span 2}
+.gal-cap{position:absolute;left:0;right:0;bottom:0;padding:1rem;background:linear-gradient(transparent,rgba(15,16,17,.82));color:#f4f1ea;font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+
+/* testimonial cards */
+.tcard{background:var(--surface);border:1px solid var(--card-line);padding:1.9rem;border-radius:2px;display:flex;flex-direction:column;gap:1rem}
+.tcard p{font-family:var(--serif);font-size:1.22rem;font-style:italic;line-height:1.35}
+.tcard .who{font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-soft)}
+.stars{color:var(--brass);letter-spacing:.2em;font-size:.9rem}
+
+/* faq */
+.faq{border-top:1px solid var(--card-line)}
+.faq details{border-bottom:1px solid var(--card-line)}
+.faq summary{list-style:none;cursor:pointer;padding:1.4rem 0;display:flex;justify-content:space-between;gap:1rem;align-items:center;font-family:var(--serif);font-size:1.3rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{color:var(--brass);font-size:1.4rem;transition:transform .2s;flex:none}
+.faq details[open] summary .pm{transform:rotate(45deg)}
+.faq .ans{color:var(--fg-soft);padding-bottom:1.4rem;max-width:72ch}
+
+/* CTA band */
+.cta-band{background:var(--ink);color:var(--chalk);text-align:center}
+.cta-band h2{font-size:clamp(2rem,5vw,3.4rem);color:var(--chalk)}
+.cta-band p{color:#b9b7ac;max-width:48ch;margin:1.2rem auto 0}
+.cta-inner{display:flex;flex-direction:column;align-items:center;gap:0}
+
+/* booking form */
+.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:start}
+@media(max-width:820px){.book-grid{grid-template-columns:1fr}}
+.form{background:var(--surface);border:1px solid var(--card-line);border-radius:2px;padding:clamp(1.4rem,3vw,2.4rem);display:flex;flex-direction:column;gap:1.1rem}
+.field{display:flex;flex-direction:column;gap:.4rem}
+.field label{font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-soft)}
+.field input,.field select,.field textarea{font-family:var(--sans);font-size:1rem;color:var(--fg);background:var(--bg);border:1px solid var(--card-line);border-radius:2px;padding:.8em .9em;width:100%}
+.field input:focus,.field select,.field textarea:focus,.field select:focus{outline:2px solid var(--brass);outline-offset:1px;border-color:var(--brass)}
+.field textarea{resize:vertical;min-height:90px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+@media(max-width:480px){.two{grid-template-columns:1fr}}
+.form-note{font-size:.8rem;color:var(--fg-soft)}
+.ok-msg{background:var(--ink);color:var(--chalk);border:1px solid var(--brass);border-radius:2px;padding:2rem;display:flex;flex-direction:column;gap:.8rem}
+.ok-msg h3{color:var(--brass);font-size:1.8rem}
+.ok-msg p{color:#c3c1b6}
+.err{color:#c0392b;font-size:.78rem}
+:root[data-theme="dark"] .err,@media (prefers-color-scheme:dark){.err{color:#e4897f}}
+
+.contact-list{display:flex;flex-direction:column;gap:1.5rem}
+.contact-item{display:flex;gap:1rem;align-items:flex-start}
+.contact-item .ic{width:26px;height:26px;color:var(--brass);flex:none;margin-top:3px}
+.contact-item .k{font-family:var(--sans);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-soft)}
+.contact-item .v{font-size:1.05rem;margin-top:.15rem}
+.copy-btn{background:none;border:1px solid var(--card-line);border-radius:2px;color:var(--fg-soft);font-family:var(--sans);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.35em .6em;cursor:pointer;margin-left:.6rem}
+.copy-btn:hover{color:var(--fg);border-color:var(--brass)}
+.hours{border:1px solid var(--card-line);border-radius:2px;padding:1.4rem 1.6rem;margin-top:1.8rem}
+.hours-row{display:flex;justify-content:space-between;padding-block:.5rem;border-bottom:1px solid var(--card-line);font-size:.92rem}
+.hours-row:last-child{border-bottom:0}
+.hours-row span:last-child{color:var(--fg-soft)}
+.map-fig{width:100%;border:1px solid var(--card-line);border-radius:2px;display:block;margin-top:1.8rem}
+
+/* footer */
+.ft{background:var(--ink);color:#b9b7ac;padding-block:clamp(44px,6vw,70px) 0}
+.ft a{color:#b9b7ac;text-decoration:none}
+.ft a:hover{color:var(--brass)}
+.ft-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:2rem}
+@media(max-width:820px){.ft-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.ft-grid{grid-template-columns:1fr}}
+.ft h4{font-family:var(--sans);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#e7e2d6;margin:0 0 1.2rem}
+.ft-links{display:flex;flex-direction:column;gap:.7rem;font-size:.92rem}
+.ft-links a{cursor:pointer}
+.ft .brand-name{color:var(--chalk)}
+.ft-blurb{font-size:.94rem;max-width:34ch;margin-top:1.2rem}
+.ft-bottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid #34363c;margin-top:3rem;padding-block:1.6rem;font-size:.78rem;color:#86857c}
+.ft-mark{display:flex;align-items:center;gap:.7rem}
+
+.page-hero{background:var(--ink-2);color:var(--chalk);border-bottom:1px solid #34363c}
+.page-hero .wrap{padding-block:clamp(56px,8vw,92px)}
+.page-hero h1{font-size:clamp(2.4rem,5.5vw,4rem);color:var(--chalk);max-width:16ch}
+.page-hero p{color:#b9b7ac;max-width:52ch;margin-top:1.2rem;font-size:1.08rem}
+.crumb{font-family:var(--sans);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin-bottom:1.2rem}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+.feat-list{display:flex;flex-direction:column;gap:1.1rem}
+.feat-list .fi{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start}
+.feat-list .fi .ic{width:22px;height:22px;color:var(--brass);margin-top:4px;flex:none}
+.feat-list .fi h3{font-size:1.15rem;margin-bottom:.2rem}
+.feat-list .fi p{color:var(--fg-soft);font-size:.92rem}
+.mini-cta{display:inline-flex;align-items:center;gap:.5em;color:var(--brass);font-family:var(--sans);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-decoration:none;margin-top:.4rem}
+.mini-cta:hover{color:var(--brass-deep)}
+</style>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500;600&display=swap">
+<script>
+const {useState,useEffect,useRef,createElement:h,Fragment}=React;
+
+/* ---------------- SVG artwork (original, theme-aware via currentColor where useful) ---------------- */
+function Pinstripe({w=600,H=760,stroke="#a97d3e",bg="#1a1b1e",cls}){
+  const lines=[];for(let x=-H;x<w;x+=14){lines.push(h("line",{key:x,x1:x,y1:0,x2:x+H,y2:H,stroke,strokeWidth:1,strokeOpacity:.5}));}
+  return h("svg",{className:cls,viewBox:`0 0 ${w} ${H}`,preserveAspectRatio:"xMidYMid slice",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},
+    h("rect",{width:w,height:H,fill:bg}), h("g",null,lines));
+}
+/* Suit silhouette on pinstripe — the hero figure */
+function SuitFigure(){
+  return h("svg",{className:"hero-fig",viewBox:"0 0 520 660",xmlns:"http://www.w3.org/2000/svg",role:"img","aria-label":"Illustration of a tailored two-piece suit"},
+    h("defs",null,
+      h("pattern",{id:"ps",width:16,height:16,patternUnits:"userSpaceOnUse",patternTransform:"rotate(0)"},
+        h("rect",{width:16,height:16,fill:"#26282c"}),
+        h("line",{x1:4,y1:0,x2:4,y2:16,stroke:"#55575d",strokeWidth:1.2}),
+        h("line",{x1:11,y1:0,x2:11,y2:16,stroke:"#3c3e44",strokeWidth:.8})),
+      h("linearGradient",{id:"br",x1:0,y1:0,x2:0,y2:1},
+        h("stop",{offset:0,stopColor:"#c79a53"}),h("stop",{offset:1,stopColor:"#8a6530"}))),
+    h("rect",{width:520,height:660,fill:"#1a1b1e"}),
+    /* jacket body */
+    h("path",{d:"M150 150 L250 120 L270 120 L370 150 L395 300 L380 560 L300 560 L300 300 L260 560 L140 560 L125 300 Z",fill:"url(#ps)",stroke:"#0f1011",strokeWidth:2}),
+    /* lapels */
+    h("path",{d:"M250 120 L260 300 L205 215 L235 150 Z",fill:"#1f2024",stroke:"#55575d",strokeWidth:1}),
+    h("path",{d:"M270 120 L260 300 L315 215 L285 150 Z",fill:"#1f2024",stroke:"#55575d",strokeWidth:1}),
+    /* collar */
+    h("path",{d:"M235 150 L205 215 L240 120 Z",fill:"#2b2d32"}),
+    h("path",{d:"M285 150 L315 215 L280 120 Z",fill:"#2b2d32"}),
+    /* shirt + tie */
+    h("path",{d:"M250 120 L260 300 L270 120 Z",fill:"#ece9df"}),
+    h("path",{d:"M258 150 L262 150 L266 250 L260 275 L254 250 Z",fill:"#a97d3e"}),
+    /* pocket square */
+    h("path",{d:"M330 250 L365 250 L360 268 L335 268 Z",fill:"#ece9df",stroke:"#c9c4b5",strokeWidth:.6}),
+    /* buttons */
+    h("circle",{cx:262,cy:360,r:5,fill:"url(#br)"}),
+    h("circle",{cx:262,cy:410,r:5,fill:"url(#br)"}),
+    /* pockets */
+    h("line",{x1:150,y1:430,x2:230,y2:438,stroke:"#0f1011",strokeWidth:3}),
+    h("line",{x1:300,y1:438,x2:378,y2:430,stroke:"#0f1011",strokeWidth:3}),
+    /* stitch frame */
+    h("rect",{x:14,y:14,width:492,height:632,fill:"none",stroke:"#a97d3e",strokeWidth:1,strokeDasharray:"2 6",strokeOpacity:.7}));
+}
+/* fabric swatches */
+function Herringbone({a="#26282c",b="#3c3e44"}){
+  return h("svg",{viewBox:"0 0 80 80",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},
+    h("rect",{width:80,height:80,fill:a}),
+    h("g",{stroke:b,strokeWidth:3},
+      Array.from({length:14},(_,i)=>i-2).flatMap(i=>[
+        h("path",{key:"u"+i,d:`M${i*12} 0 l12 12`,fill:"none"}),
+        h("path",{key:"d"+i,d:`M${i*12} 12 l12 -12`,fill:"none",transform:"translate(0,0)"})
+      ])));
+}
+function Houndstooth({a="#1a1b1e",b="#e7e2d6"}){
+  return h("svg",{viewBox:"0 0 80 80",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},
+    h("rect",{width:80,height:80,fill:b}),
+    h("g",{fill:a},
+      [0,40].flatMap(oy=>[0,40].map(ox=>h("g",{key:ox+"-"+oy,transform:`translate(${ox},${oy})`},
+        h("path",{d:"M0 0 h20 v8 l-12 12 h-8 Z"}),
+        h("path",{d:"M20 20 h20 v20 h-8 l-12 -12 Z"}),
+        h("path",{d:"M0 20 h8 l12 12 v8 h-20 Z"})
+      )))));
+}
+function Windowpane({base="#26282c",line="#a97d3e"}){
+  return h("svg",{viewBox:"0 0 80 80",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},
+    h("rect",{width:80,height:80,fill:base}),
+    h("g",{stroke:line,strokeWidth:1.4,strokeOpacity:.7,fill:"none"},
+      h("line",{x1:20,y1:0,x2:20,y2:80}),h("line",{x1:60,y1:0,x2:60,y2:80}),
+      h("line",{x1:0,y1:20,x2:80,y2:20}),h("line",{x1:0,y1:60,x2:80,y2:60})));
+}
+function Twill({a="#1f2024",b="#3c3e44"}){
+  return h("svg",{viewBox:"0 0 80 80",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},
+    h("rect",{width:80,height:80,fill:a}),
+    h("g",{stroke:b,strokeWidth:6,strokeOpacity:.6},
+      Array.from({length:20},(_,i)=>h("line",{key:i,x1:i*10-80,y1:80,x2:i*10,y2:0}))));
+}
+function Flannel({a="#2b2d32",b="#a97d3e"}){
+  return h("svg",{viewBox:"0 0 80 80",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},
+    h("rect",{width:80,height:80,fill:a}),
+    h("g",{stroke:b,strokeOpacity:.35},
+      h("line",{x1:0,y1:26,x2:80,y2:26,strokeWidth:5}),h("line",{x1:0,y1:54,x2:80,y2:54,strokeWidth:2}),
+      h("line",{x1:26,y1:0,x2:26,y2:80,strokeWidth:5}),h("line",{x1:54,y1:0,x2:54,y2:80,strokeWidth:2})));
+}
+function Sharkskin({a="#23242a",b="#50525a"}){
+  const dots=[];for(let y=0;y<80;y+=8)for(let x=((y/8)%2?4:0);x<80;x+=8)dots.push(h("circle",{key:x+"-"+y,cx:x,cy:y,r:1.4,fill:b}));
+  return h("svg",{viewBox:"0 0 80 80",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},h("rect",{width:80,height:80,fill:a}),dots);
+}
+
+/* gallery illustrations — garment on fabric ground */
+function GarmentPlate({fabric,title}){
+  return h("svg",{viewBox:"0 0 400 460",xmlns:"http://www.w3.org/2000/svg",preserveAspectRatio:"xMidYMid slice",role:"img","aria-label":title},
+    h("defs",null,fabric),
+    h("rect",{width:400,height:460,fill:"url(#fab)"}),
+    h("rect",{x:14,y:14,width:372,height:432,fill:"none",stroke:"#a97d3e",strokeWidth:1,strokeOpacity:.6,strokeDasharray:"1 6"}));
+}
+
+/* icons */
+function Icon({name,cls="ic"}){
+  const p={className:cls,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.5,strokeLinecap:"round",strokeLinejoin:"round",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"};
+  const paths={
+    scissors:[h("circle",{key:1,cx:6,cy:6,r:3}),h("circle",{key:2,cx:6,cy:18,r:3}),h("line",{key:3,x1:20,y1:4,x2:8.12,y2:15.88}),h("line",{key:4,x1:14.47,y1:14.48,x2:20,y2:20}),h("line",{key:5,x1:8.12,y1:8.12,x2:12,y2:12})],
+    ruler:[h("path",{key:1,d:"M3 15l6 6 12-12-6-6z"}),h("path",{key:2,d:"M7.5 10.5l1.5 1.5M10.5 7.5l1.5 1.5M13.5 4.5l1.5 1.5"})],
+    thread:[h("path",{key:1,d:"M12 2v20"}),h("path",{key:2,d:"M8 5c4 2 4 4 0 6s-4 4 0 6"}),h("circle",{key:3,cx:12,cy:2,r:1.2,fill:"currentColor"})],
+    hanger:[h("path",{key:1,d:"M12 7a2 2 0 112-2"}),h("path",{key:2,d:"M12 7l8 6a2 2 0 01-1 4H5a2 2 0 01-1-4l8-6z"})],
+    phone:[h("path",{key:1,d:"M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0122 16.92z"})],
+    pin:[h("path",{key:1,d:"M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"}),h("circle",{key:2,cx:12,cy:10,r:3})],
+    mail:[h("rect",{key:1,x:2,y:4,width:20,height:16,rx:2}),h("path",{key:2,d:"M22 6l-10 7L2 6"})],
+    clock:[h("circle",{key:1,cx:12,cy:12,r:9}),h("path",{key:2,d:"M12 7v5l3 2"})],
+    check:[h("path",{key:1,d:"M20 6L9 17l-5-5"})],
+    star:[h("path",{key:1,d:"M12 2l3 7 7 .5-5.5 4.5 2 7L12 17l-6.5 4 2-7L2 9.5 9 9z"})],
+    arrow:[h("path",{key:1,d:"M5 12h14M13 6l6 6-6 6"})],
+    gem:[h("path",{key:1,d:"M6 3h12l4 6-10 12L2 9z"}),h("path",{key:2,d:"M2 9h20M6 3l4 6M18 3l-4 6M12 21l-2-12M12 21l2-12"})],
+    globe:[h("circle",{key:1,cx:12,cy:12,r:9}),h("path",{key:2,d:"M3 12h18M12 3a15 15 0 010 18 15 15 0 010-18z"})],
+  };
+  return h("svg",p,paths[name]||[]);
+}
+
+/* fabric defs for gallery plates (each a <defs> with pattern id 'fab') */
+const fabDefs={
+  one:h("pattern",{id:"fab",width:16,height:16,patternUnits:"userSpaceOnUse"},h("rect",{width:16,height:16,fill:"#26282c"}),h("line",{x1:4,x2:4,y1:0,y2:16,stroke:"#55575d",strokeWidth:1}),h("line",{x1:11,x2:11,y1:0,y2:16,stroke:"#3c3e44",strokeWidth:.7})),
+  two:h("pattern",{id:"fab",width:40,height:40,patternUnits:"userSpaceOnUse"},h("rect",{width:40,height:40,fill:"#1f2024"}),h("g",{stroke:"#a97d3e",strokeOpacity:.6,fill:"none",strokeWidth:1.2},h("line",{x1:0,y1:20,x2:40,y2:20}),h("line",{x1:20,y1:0,x2:20,y2:40}))),
+  three:h("pattern",{id:"fab",width:20,height:20,patternUnits:"userSpaceOnUse"},h("rect",{width:20,height:20,fill:"#2b2d32"}),h("path",{d:"M0 20 L20 0",stroke:"#50525a",strokeWidth:4})),
+  four:h("pattern",{id:"fab",width:12,height:12,patternUnits:"userSpaceOnUse"},h("rect",{width:12,height:12,fill:"#23242a"}),h("circle",{cx:3,cy:3,r:1.3,fill:"#55575d"}),h("circle",{cx:9,cy:9,r:1.3,fill:"#55575d"})),
+  five:h("pattern",{id:"fab",width:40,height:40,patternUnits:"userSpaceOnUse"},h("rect",{width:40,height:40,fill:"#26282c"}),h("line",{x1:0,y1:13,x2:40,y2:13,stroke:"#a97d3e",strokeOpacity:.4,strokeWidth:4}),h("line",{x1:13,y1:0,x2:13,y2:40,stroke:"#a97d3e",strokeOpacity:.4,strokeWidth:4})),
+  six:h("pattern",{id:"fab",width:16,height:16,patternUnits:"userSpaceOnUse"},h("rect",{width:16,height:16,fill:"#1a1b1e"}),h("path",{d:"M0 0 h8 v4 l-5 5 h-3 Z M8 8 h8 v8 h-3 l-5 -5 Z",fill:"#3a3c42"})),
+};
+
+/* ---------------- shared layout ---------------- */
+const NAV=[["home","Home"],["craft","Our Craft"],["services","Services"],["lookbook","Lookbook"],["book","Book Appointment"]];
+const BRASS="#a97d3e";
+
+function Logo({size=34}){
+  return h("svg",{className:"brand-mark",width:size,height:size,viewBox:"0 0 40 40",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},
+    h("rect",{x:1,y:1,width:38,height:38,rx:1,fill:"none",stroke:BRASS,strokeWidth:1.3}),
+    h("path",{d:"M20 7 L31 13 V27 L20 33 L9 27 V13 Z",fill:"none",stroke:"currentColor",strokeWidth:1.2,opacity:.8}),
+    h("path",{d:"M20 7 V33 M9 13 L31 27 M31 13 L9 27",stroke:BRASS,strokeWidth:.8,opacity:.5}),
+    h("text",{x:20,y:25,textAnchor:"middle",fontFamily:"Cormorant Garamond, serif",fontSize:16,fill:"currentColor",fontStyle:"italic"},"C"));
+}
+
+function Header({route,go}){
+  const [open,setOpen]=useState(false);
+  useEffect(()=>{setOpen(false)},[route]);
+  return h("header",{className:"hd"},
+    h("div",{className:"wrap hd-in"},
+      h("button",{className:"brand",onClick:()=>go("home"),"aria-label":"Credence Stuff home"},
+        h(Logo,null),
+        h("span",null,
+          h("span",{className:"brand-name"},"Credence Stuff"),
+          h("span",{className:"brand-sub"},"Bespoke Tailors · London"))),
+      h("nav",{className:"nav"},
+        NAV.slice(0,4).map(([id,label])=>h("a",{key:id,className:route===id?"active":"",onClick:()=>go(id)},label))),
+      h("a",{className:"btn btn-primary hd-cta",onClick:()=>go("book")},"Book a Fitting"),
+      h("button",{className:"burger","aria-label":"Menu",onClick:()=>setOpen(o=>!o)},
+        h("span",null),h("span",null),h("span",null))),
+    h("div",{className:"mnav"+(open?" open":"")},
+      NAV.map(([id,label])=>h("a",{key:id,onClick:()=>go(id)},label))));
+}
+
+function Footer({go}){
+  return h("footer",{className:"ft"},
+    h("div",{className:"wrap"},
+      h("div",{className:"ft-grid"},
+        h("div",null,
+          h("div",{className:"ft-mark"},h(Logo,null),h("span",{className:"brand-name"},"Credence Stuff")),
+          h("p",{className:"ft-blurb"},"Made-to-measure and bespoke suiting, cut and finished for the way you live and work. By appointment on Tottenham Court Road.")),
+        h("div",null,h("h4",null,"Visit"),
+          h("div",{className:"ft-links"},
+            h("span",null,"60 Tottenham Court Road"),
+            h("span",null,"Suite 2099a, Fitzrovia"),
+            h("span",null,"London, W1T 2EW"),
+            h("span",null,"United Kingdom"))),
+        h("div",null,h("h4",null,"Pages"),
+          h("div",{className:"ft-links"},
+            NAV.map(([id,label])=>h("a",{key:id,onClick:()=>go(id)},label)))),
+        h("div",null,h("h4",null,"Enquiries"),
+          h("div",{className:"ft-links"},
+            h("a",{href:"tel:+447916690013"},"+44 7916 690013"),
+            h("a",{href:"mailto:Info@credencestuff.com"},"Info@credencestuff.com"),
+            h("a",{onClick:()=>go("book")},"Request an appointment")))),
+      h("div",{className:"ft-bottom"},
+        h("span",null,"© 2026 Credence Stuff. All rights reserved."),
+        h("span",null,"Bespoke · Made-to-Measure · Alterations"))));
+}
+
+/* reveal-on-scroll hook */
+function useReveal(){
+  const ref=useRef(null);
+  useEffect(()=>{
+    const els=ref.current?.querySelectorAll(".reveal")||[];
+    if(!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("in"));return;}
+    const io=new IntersectionObserver((ents)=>ents.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}}),{threshold:.12});
+    els.forEach(e=>io.observe(e));
+    return ()=>io.disconnect();
+  });
+  return ref;
+}
+
+/* ---------------- HOME ---------------- */
+function Home({go}){
+  const ref=useReveal();
+  return h("div",{ref},
+    /* 1. hero */
+    h("section",{className:"hero"},
+      h("div",{className:"wrap hero-grid"},
+        h("div",null,
+          h("span",{className:"eyebrow"},"Est. in the heart of Fitzrovia"),
+          h("h1",null,"The suit that ",h("em",null,"answers")," to no one but you."),
+          h("p",null,"Credence Stuff cuts bespoke and made-to-measure suits in London — measured by hand, built on your frame, and finished to last a decade of wear."),
+          h("div",{className:"hero-cta"},
+            h("a",{className:"btn btn-brass",onClick:()=>go("book")},"Book a Fitting",h(Icon,{name:"arrow",cls:"ic",})),
+            h("a",{className:"btn btn-ghost",style:{color:"#e7e2d6"},onClick:()=>go("services")},"View Services")),
+          h("div",{className:"hero-stats"},
+            h("div",null,h("div",{className:"n"},"12+"),h("div",{className:"l"},"Years cutting cloth")),
+            h("div",null,h("div",{className:"n"},"3"),h("div",{className:"l"},"Fittings per commission")),
+            h("div",null,h("div",{className:"n"},"W1T"),h("div",{className:"l"},"Fitzrovia atelier")))),
+        h("div",{className:"hero-art"},h(SuitFigure,null)))),
+
+    /* 2. value props */
+    h("section",{className:"sec"},
+      h("div",{className:"wrap"},
+        h("div",{className:"sec-head reveal"},
+          h("span",{className:"eyebrow"},"Why Credence"),
+          h("h2",null,"Tailoring without the theatre."),
+          h("p",{className:"lead"},"No pressure, no mark-ups you can't see, no off-the-peg garment pretending to be made for you. Just a well-cut suit and an honest fitting.")),
+        h("div",{className:"grid3"},
+          [["scissors","Cut for one body","Every pattern is drafted to your measurements — not graded from a size chart. The shoulders sit, the waist follows you, the trousers break where you want them."],
+           ["gem","Cloth you can trust","We work with English and Italian mills by the metre. You choose the weight, weave and finish, and see the bunch before a single stitch is made."],
+           ["hanger","Built to be worn","Canvassed construction, hand-finished buttonholes, seams left generous for alteration. A Credence suit is meant to be re-pressed, not replaced."]]
+          .map(([ic,t,d])=>h("div",{className:"card reveal",key:t},
+            h(Icon,{name:ic}),h("h3",null,t),h("p",null,d)))))),
+
+    /* 3. process */
+    h("section",{className:"sec dark-band"},
+      h("div",{className:"wrap"},
+        h("div",{className:"sec-head reveal"},
+          h("span",{className:"eyebrow"},"The commission"),
+          h("h2",null,"Four appointments, one suit."),
+          h("p",{className:"lead"},"From first measure to final press, here is exactly how a commission runs — so there are no surprises except how well it fits.")),
+        h("div",{className:"steps"},
+          [["Consultation","We talk through occasion, cloth and cut over about an hour, take your measurements, and agree the commission in writing."],
+           ["Cloth & draft","You select the cloth from our mill bunches. We draft your personal pattern and cut the cloth to it."],
+           ["Fittings","You return for a basted fitting, then a forward fitting. We adjust on your body until the balance is right."],
+           ["Collection","The finished suit is pressed and handed over, with its pattern kept on file for your next commission."]]
+          .map(([t,d],i)=>h("div",{className:"step reveal",key:t},
+            h("div",{className:"num"},"0"+(i+1)),h("h3",null,t),h("p",null,d)))))),
+
+    /* 4. cloth swatches */
+    h("section",{className:"sec"},
+      h("div",{className:"wrap"},
+        h("div",{className:"sec-head reveal"},
+          h("span",{className:"eyebrow"},"The cloth library"),
+          h("h2",null,"Six houses. Hundreds of cloths."),
+          h("p",{className:"lead"},"A glimpse of the weaves our clients choose most — from a quiet city pinstripe to a weekend flannel.")),
+        h("div",{className:"grid4 reveal"},
+          [[Pinstripe && (()=>h(Herringbone,{})),"Herringbone"],
+           [()=>h(Houndstooth,{}),"Houndstooth"],
+           [()=>h(Windowpane,{}),"Windowpane"],
+           [()=>h(Flannel,{}),"Brushed flannel"]]
+          .map(([C,label])=>h("div",{key:label},
+            h("div",{className:"swatch"},h(C)),
+            h("p",{style:{fontFamily:"var(--sans)",fontSize:".72rem",letterSpacing:".14em",textTransform:"uppercase",color:"var(--fg-soft)",marginTop:".7rem"}},label)))),
+        h("div",{style:{marginTop:"2rem"}},
+          h("a",{className:"mini-cta",onClick:()=>go("services")},"See the full service list",h(Icon,{name:"arrow",cls:"ic",}))))),
+
+    /* 5. testimonials */
+    h("section",{className:"sec",style:{background:"var(--chalk-2)"}},
+      h("div",{className:"wrap"},
+        h("div",{className:"sec-head reveal"},
+          h("span",{className:"eyebrow"},"In their words"),
+          h("h2",null,"Worn to boardrooms, weddings and beyond.")),
+        h("div",{className:"grid3"},
+          [["The first jacket I've owned that I forget I'm wearing. The shoulder is extraordinary.","— Daniel R., Barrister"],
+           ["They talked me out of the flashier cloth and into the right one. That's when I knew I'd be back.","— Marcus T., Founder"],
+           ["Three fittings sounds like a lot until you see the result. My wedding suit was flawless.","— Oliver P., Shoreditch"]]
+          .map(([q,w])=>h("div",{className:"tcard reveal",key:w},
+            h("div",{className:"stars"},"★★★★★"),
+            h("p",null,"“"+q+"”"),
+            h("div",{className:"who"},w)))))),
+
+    /* 6. CTA */
+    h(CTABand,{go}));
+}
+
+/* ---------------- CRAFT (about) ---------------- */
+function Craft({go}){
+  const ref=useReveal();
+  return h("div",{ref},
+    h("section",{className:"page-hero"},h("div",{className:"wrap"},
+      h("div",{className:"crumb"},"Our Craft"),
+      h("h1",null,"A small atelier with a long memory."),
+      h("p",null,"Credence Stuff was built on a simple idea: that a suit should be made for the person wearing it, by people who will still be here when it needs a new lining."))),
+
+    /* 2 */
+    h("section",{className:"sec"},h("div",{className:"wrap grid2"},
+      h("div",{className:"reveal"},
+        h("span",{className:"eyebrow"},"Our story"),
+        h("h2",{style:{fontSize:"clamp(1.9rem,4vw,2.8rem)",margin:".9rem 0 1.2rem"}},"From a single bench on Tottenham Court Road."),
+        h("p",{className:"lead",style:{marginBottom:"1rem"}},"We started with one cutting bench, a wall of mill bunches and a short list of clients who were tired of suits that almost fit."),
+        h("p",{style:{color:"var(--fg-soft)"}},"Today the room is a little larger, but the rule hasn't changed: one cutter sees your commission from first measure to final press. Your pattern is drafted by hand, kept on file, and refined every time you come back.")),
+      h("div",{className:"reveal"},h(Pinstripe,{cls:"split-fig",w:560,H:680})))),
+
+    /* 3 principles */
+    h("section",{className:"sec dark-band"},h("div",{className:"wrap"},
+      h("div",{className:"sec-head reveal"},
+        h("span",{className:"eyebrow"},"What we hold to"),
+        h("h2",null,"Four principles, kept quietly.")),
+      h("div",{className:"grid2",style:{alignItems:"start",gap:"2.6rem"}},
+        h("div",{className:"feat-list"},
+          [["ruler","Measured by hand","No body scanners. A tape, a trained eye, and the patience to measure twice."],
+           ["gem","Honest cloth","We tell you what a cloth will and won't do — how it creases, how it wears, how it travels."]]
+          .map(([ic,t,d])=>h("div",{className:"fi reveal",key:t},h(Icon,{name:ic}),h("div",null,h("h3",null,t),h("p",null,d))))),
+        h("div",{className:"feat-list"},
+          [["thread","Finished by hand","The buttonholes, the pick-stitching, the linings — the parts you feel more than see."],
+           ["check","Kept for life","Your pattern stays on file and your suit comes back to us for pressing and repair, not the bin."]]
+          .map(([ic,t,d])=>h("div",{className:"fi reveal",key:t},h(Icon,{name:ic}),h("div",null,h("h3",null,t),h("p",null,d)))))))),
+
+    /* 4 quote */
+    h("section",{className:"sec"},h("div",{className:"wrap quote-wrap reveal"},
+      h(Icon,{name:"scissors",cls:"ic",}),
+      h("div",null,
+        h("blockquote",{className:"quote"},"A good suit is a quiet argument that you take yourself seriously."),
+        h("div",{className:"cite"},"— The house, on why we still baste by hand")))),
+
+    /* 5 stats */
+    h("section",{className:"sec",style:{background:"var(--chalk-2)"}},h("div",{className:"wrap"},
+      h("div",{className:"sec-head reveal"},h("span",{className:"eyebrow"},"By the numbers"),h("h2",null,"Craft, counted.")),
+      h("div",{className:"grid4"},
+        [["12+","Years at the bench"],["3","Fittings per bespoke suit"],["60+","Hours in a two-piece"],["100%","Patterns kept on file"]]
+        .map(([n,l])=>h("div",{className:"card reveal",key:l,style:{alignItems:"flex-start"}},
+          h("div",{style:{fontFamily:"var(--serif)",fontSize:"2.6rem",color:"var(--brass)",lineHeight:1}},n),
+          h("p",{style:{fontSize:".78rem",letterSpacing:".14em",textTransform:"uppercase",color:"var(--fg-soft)"}},l)))))),
+
+    /* 6 cta */
+    h(CTABand,{go}));
+}
+
+/* ---------------- SERVICES ---------------- */
+function Services({go}){
+  const ref=useReveal();
+  const rows=[
+    ["Bespoke Two-Piece","A fully hand-drafted pattern, canvassed construction and three fittings. The complete Credence commission.","from £1,850"],
+    ["Bespoke Three-Piece","Jacket, trousers and a matching or contrast waistcoat, cut as one considered whole.","from £2,300"],
+    ["Made-to-Measure Suit","Your measurements applied to a refined block — a faster route to an excellent fit.","from £950"],
+    ["Occasion & Wedding","Morning coats, dinner suits and wedding-party commissions, coordinated across the group.","from £1,600"],
+    ["Odd Jacket & Trousers","A sports coat or separate trousers, made to the same standard as a full suit.","from £780"],
+    ["Alterations & Repair","Re-balancing, tapering and restoration — for our garments and, where we can, for yours.","on quote"],
+  ];
+  return h("div",{ref},
+    h("section",{className:"page-hero"},h("div",{className:"wrap"},
+      h("div",{className:"crumb"},"Services"),
+      h("h1",null,"What we make, and what it takes."),
+      h("p",null,"Every commission is quoted in full at your first appointment, including cloth. The figures below are honest starting points, not teasers."))),
+
+    /* price list */
+    h("section",{className:"sec"},h("div",{className:"wrap"},
+      h("div",{className:"sec-head reveal"},h("span",{className:"eyebrow"},"Commissions"),h("h2",null,"The service list.")),
+      h("div",{className:"srv reveal"},
+        rows.map(([t,d,p])=>h("div",{className:"srv-row",key:t},
+          h("div",null,h("h3",null,t),h("p",{className:"desc"},d)),
+          h("div",{className:"price"},p.replace(/^from /,""),h("small",null,p.startsWith("from")?"starting from":"by quotation"))))))),
+
+    /* bespoke vs mtm */
+    h("section",{className:"sec dark-band"},h("div",{className:"wrap"},
+      h("div",{className:"sec-head reveal"},h("span",{className:"eyebrow"},"Which is right for you"),
+        h("h2",null,"Bespoke or made-to-measure?"),
+        h("p",{className:"lead"},"Both are made for you. The difference is how far we go to get there.")),
+      h("div",{className:"grid2",style:{alignItems:"stretch"}},
+        h("div",{className:"card reveal"},
+          h("span",{className:"eyebrow"},"Bespoke"),
+          h("h3",{style:{fontSize:"1.9rem",margin:".4rem 0 .6rem"}},"Drafted from zero"),
+          h("div",{className:"feat-list",style:{marginTop:".6rem"}},
+            ["A unique paper pattern, cut only for you","Three fittings, adjusted on your body","Full canvas and hand finishing","Widest choice of cloth and detail"]
+            .map(t=>h("div",{className:"fi",key:t},h(Icon,{name:"check"}),h("p",{style:{color:"#b9b7ac"}},t))))),
+        h("div",{className:"card reveal"},
+          h("span",{className:"eyebrow"},"Made-to-measure"),
+          h("h3",{style:{fontSize:"1.9rem",margin:".4rem 0 .6rem"}},"Your fit, sooner"),
+          h("div",{className:"feat-list",style:{marginTop:".6rem"}},
+            ["A refined block adjusted to your measurements","One fitting in most cases","Excellent fit at a gentler price","A strong first step into tailoring"]
+            .map(t=>h("div",{className:"fi",key:t},h(Icon,{name:"check"}),h("p",{style:{color:"#b9b7ac"}},t)))))))),
+
+    /* whats included */
+    h("section",{className:"sec"},h("div",{className:"wrap"},
+      h("div",{className:"sec-head reveal"},h("span",{className:"eyebrow"},"Always included"),h("h2",null,"In every Credence commission.")),
+      h("div",{className:"grid3"},
+        [["ruler","A personal pattern","Drafted or adjusted for you and kept on file for future orders."],
+         ["thread","Hand finishing","Buttonholes, linings and pressing finished by hand where it counts."],
+         ["clock","Fittings that end right","We keep fitting until the balance is correct — not until the diary says stop."]]
+        .map(([ic,t,d])=>h("div",{className:"card reveal",key:t},h(Icon,{name:ic}),h("h3",null,t),h("p",null,d)))))),
+
+    /* cloth partners */
+    h("section",{className:"sec",style:{background:"var(--chalk-2)"}},h("div",{className:"wrap"},
+      h("div",{className:"sec-head reveal"},h("span",{className:"eyebrow"},"The cloth"),h("h2",null,"Woven in England and Italy."),
+        h("p",{className:"lead"},"We buy from established woollen mills by the metre, in weights from a breathable summer cloth to a heavy winter flannel.")),
+      h("div",{className:"grid4 reveal"},
+        [[()=>h(Twill,{}),"Worsted twill"],[()=>h(Windowpane,{}),"Windowpane check"],[()=>h(Sharkskin,{}),"Sharkskin"],[()=>h(Flannel,{}),"Winter flannel"]]
+        .map(([C,l])=>h("div",{key:l},h("div",{className:"swatch"},h(C)),
+          h("p",{style:{fontFamily:"var(--sans)",fontSize:".72rem",letterSpacing:".14em",textTransform:"uppercase",color:"var(--fg-soft)",marginTop:".7rem"}},l)))))),
+
+    h(CTABand,{go}));
+}
+
+/* ---------------- LOOKBOOK ---------------- */
+function Lookbook({go}){
+  const ref=useReveal();
+  const plates=[
+    [fabDefs.one,"City pinstripe","gal-tall"],
+    [fabDefs.two,"Brass windowpane",""],
+    [fabDefs.three,"Charcoal twill",""],
+    [fabDefs.four,"Sharkskin grey",""],
+    [fabDefs.five,"Tattersall check","gal-tall"],
+    [fabDefs.six,"Houndstooth",""],
+  ];
+  return h("div",{ref},
+    h("section",{className:"page-hero"},h("div",{className:"wrap"},
+      h("div",{className:"crumb"},"Lookbook"),
+      h("h1",null,"A record of recent cloth."),
+      h("p",null,"Our garments go home with their owners, so here we show the cloths and cuts behind them — the weaves, checks and finishes from recent commissions."))),
+
+    /* gallery */
+    h("section",{className:"sec"},h("div",{className:"wrap"},
+      h("div",{className:"sec-head reveal"},h("span",{className:"eyebrow"},"Recent commissions"),h("h2",null,"Cloth, up close.")),
+      h("div",{className:"gal reveal"},
+        plates.map(([def,cap,cls])=>h("div",{className:"gal-item "+cls,key:cap},
+          h(GarmentPlate,{fabric:def,title:cap}),
+          h("div",{className:"gal-cap"},cap)))))),
+
+    /* styles row */
+    h("section",{className:"sec dark-band"},h("div",{className:"wrap"},
+      h("div",{className:"sec-head reveal"},h("span",{className:"eyebrow"},"House cuts"),h("h2",null,"Three silhouettes we're known for.")),
+      h("div",{className:"grid3"},
+        [["The City","A clean two-button single-breasted cut with a structured shoulder. Made for a working week."],
+         ["The Fitzrovia","A softer, Italian-leaning shoulder and higher armhole. Easy to move in, quietly modern."],
+         ["The Occasion","Peak lapels, a touch of waist suppression and evening cloth. For the days that are remembered."]]
+        .map(([t,d])=>h("div",{className:"card reveal",key:t},
+          h("div",{style:{height:"120px",marginBottom:".4rem"}},h(Pinstripe,{w:300,H:160,cls:"split-fig"})),
+          h("h3",null,t),h("p",null,d)))))),
+
+    /* detail callouts */
+    h("section",{className:"sec"},h("div",{className:"wrap grid2"},
+      h("div",{className:"reveal"},h(Houndstooth,{})),
+      h("div",{className:"reveal"},
+        h("span",{className:"eyebrow"},"In the detail"),
+        h("h2",{style:{fontSize:"clamp(1.8rem,4vw,2.6rem)",margin:".8rem 0 1rem"}},"It's the finishing you feel."),
+        h("div",{className:"feat-list"},
+          [["Hand-sewn buttonholes","Milanese buttonholes on the lapel and cuffs, worked by hand."],
+           ["Functional sleeve buttons","Surgeon's cuffs that actually open, on request."],
+           ["Bespoke linings","A quiet lining or a bold one — your choice, hidden until you want it seen."]]
+          .map(([t,d])=>h("div",{className:"fi",key:t},h(Icon,{name:"check"}),h("div",null,h("h3",null,t),h("p",null,d)))))))),
+
+    /* mini testimonial */
+    h("section",{className:"sec",style:{background:"var(--chalk-2)"}},h("div",{className:"wrap quote-wrap reveal"},
+      h(Icon,{name:"star",cls:"ic",}),
+      h("div",null,h("blockquote",{className:"quote"},"People ask where the suit is from. I never used to be asked that."),
+        h("div",{className:"cite"},"— James H., returning client")))),
+
+    h(CTABand,{go}));
+}
+
+/* ---------------- BOOK ---------------- */
+function Book(){
+  const ref=useReveal();
+  const [sent,setSent]=useState(false);
+  const [errs,setErrs]=useState({});
+  const [copied,setCopied]=useState("");
+  const [form,setForm]=useState({name:"",email:"",phone:"",service:"Bespoke Two-Piece",date:"",time:"Morning",notes:""});
+  const set=(k)=>(e)=>setForm(f=>({...f,[k]:e.target.value}));
+  function copy(text,key){
+    const done=()=>{setCopied(key);setTimeout(()=>setCopied(""),1600);};
+    try{navigator.clipboard.writeText(text).then(done,()=>fallback());}catch(e){fallback();}
+    function fallback(){const t=document.createElement("textarea");t.value=text;document.body.appendChild(t);t.select();try{document.execCommand("copy");done();}catch(_){}document.body.removeChild(t);}
+  }
+  function submit(e){
+    e.preventDefault();
+    const er={};
+    if(!form.name.trim())er.name="Please tell us your name.";
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email))er.email="Enter a valid email address.";
+    if(form.phone.replace(/\D/g,"").length<7)er.phone="Enter a contact number.";
+    if(!form.date)er.date="Choose a preferred date.";
+    setErrs(er);
+    if(Object.keys(er).length===0)setSent(true);
+  }
+  return h("div",{ref},
+    h("section",{className:"page-hero"},h("div",{className:"wrap"},
+      h("div",{className:"crumb"},"Book an Appointment"),
+      h("h1",null,"Reserve your first fitting."),
+      h("p",null,"Tell us a little about what you're after and when suits you. We'll confirm your appointment by phone or email, usually within one working day."))),
+
+    h("section",{className:"sec"},h("div",{className:"wrap book-grid"},
+      /* form side */
+      h("div",{className:"reveal"},
+        sent
+        ? h("div",{className:"ok-msg"},
+            h(Icon,{name:"check",cls:"ic",}),
+            h("h3",null,"Thank you, "+(form.name.split(" ")[0]||"")+"."),
+            h("p",null,"Your request for a "+form.service.toLowerCase()+" fitting on "+(form.date||"your chosen date")+" ("+form.time.toLowerCase()+") has been noted. We'll be in touch shortly on "+form.phone+" to confirm."),
+            h("p",{style:{fontSize:".85rem"}},"Prefer to speak now? Call +44 7916 690013."),
+            h("button",{className:"btn btn-brass",style:{alignSelf:"flex-start",marginTop:".6rem"},onClick:()=>{setSent(false);setForm({name:"",email:"",phone:"",service:"Bespoke Two-Piece",date:"",time:"Morning",notes:""});}},"Book another"))
+        : h("form",{className:"form",onSubmit:submit,noValidate:true},
+            h("div",{className:"field"},h("label",{htmlFor:"f-name"},"Full name"),
+              h("input",{id:"f-name",value:form.name,onChange:set("name"),placeholder:"e.g. Daniel Rowe"}),
+              errs.name&&h("span",{className:"err"},errs.name)),
+            h("div",{className:"two"},
+              h("div",{className:"field"},h("label",{htmlFor:"f-email"},"Email"),
+                h("input",{id:"f-email",type:"email",value:form.email,onChange:set("email"),placeholder:"you@email.com"}),
+                errs.email&&h("span",{className:"err"},errs.email)),
+              h("div",{className:"field"},h("label",{htmlFor:"f-phone"},"Phone"),
+                h("input",{id:"f-phone",type:"tel",value:form.phone,onChange:set("phone"),placeholder:"+44 …"}),
+                errs.phone&&h("span",{className:"err"},errs.phone))),
+            h("div",{className:"field"},h("label",{htmlFor:"f-service"},"What are you after?"),
+              h("select",{id:"f-service",value:form.service,onChange:set("service")},
+                ["Bespoke Two-Piece","Bespoke Three-Piece","Made-to-Measure Suit","Occasion & Wedding","Odd Jacket & Trousers","Alterations & Repair","Not sure yet — advise me"]
+                .map(o=>h("option",{key:o,value:o},o)))),
+            h("div",{className:"two"},
+              h("div",{className:"field"},h("label",{htmlFor:"f-date"},"Preferred date"),
+                h("input",{id:"f-date",type:"date",value:form.date,onChange:set("date")}),
+                errs.date&&h("span",{className:"err"},errs.date)),
+              h("div",{className:"field"},h("label",{htmlFor:"f-time"},"Preferred time"),
+                h("select",{id:"f-time",value:form.time,onChange:set("time")},
+                  ["Morning","Afternoon","Early evening"].map(o=>h("option",{key:o,value:o},o))))),
+            h("div",{className:"field"},h("label",{htmlFor:"f-notes"},"Anything else?"),
+              h("textarea",{id:"f-notes",value:form.notes,onChange:set("notes"),placeholder:"Occasion, deadline, cloth you have in mind…"})),
+            h("button",{className:"btn btn-primary",type:"submit",style:{alignSelf:"flex-start"}},"Request Appointment",h(Icon,{name:"arrow",cls:"ic",})),
+            h("p",{className:"form-note"},"We'll only use your details to arrange your fitting. No marketing, no lists."))),
+
+      /* contact side */
+      h("div",{className:"reveal"},
+        h("span",{className:"eyebrow"},"Or reach us directly"),
+        h("h2",{style:{fontSize:"clamp(1.7rem,3.5vw,2.3rem)",margin:".8rem 0 1.6rem"}},"The atelier."),
+        h("div",{className:"contact-list"},
+          h("div",{className:"contact-item"},h(Icon,{name:"pin"}),h("div",null,
+            h("div",{className:"k"},"Visit by appointment"),
+            h("div",{className:"v"},"60 Tottenham Court Road, Suite 2099a,",h("br"),"Fitzrovia, London, W1T 2EW, United Kingdom"))),
+          h("div",{className:"contact-item"},h(Icon,{name:"phone"}),h("div",null,
+            h("div",{className:"k"},"Telephone"),
+            h("div",{className:"v"},h("a",{href:"tel:+447916690013",style:{textDecoration:"none"}},"+44 7916 690013"),
+              h("button",{className:"copy-btn",onClick:()=>copy("+44 7916 690013","phone")},copied==="phone"?"Copied":"Copy")))),
+          h("div",{className:"contact-item"},h(Icon,{name:"mail"}),h("div",null,
+            h("div",{className:"k"},"Email"),
+            h("div",{className:"v"},h("a",{href:"mailto:Info@credencestuff.com",style:{textDecoration:"none"}},"Info@credencestuff.com"),
+              h("button",{className:"copy-btn",onClick:()=>copy("Info@credencestuff.com","email")},copied==="email"?"Copied":"Copy"))))),
+        h("div",{className:"hours"},
+          [["Monday – Friday","9:30 – 18:30"],["Saturday","10:00 – 17:00"],["Sunday","By appointment"]]
+          .map(([d,t])=>h("div",{className:"hours-row",key:d},h("span",null,d),h("span",null,t)))),
+        /* map illustration */
+        h(MapPlate,null)))),
+
+    /* reassurance strip */
+    h("section",{className:"sec dark-band"},h("div",{className:"wrap"},
+      h("div",{className:"grid3"},
+        [["clock","One working day","We reply to every request within one working day, usually sooner."],
+         ["check","No obligation","A first consultation is a conversation, not a commitment to buy."],
+         ["globe","Travelling to London?","Tell us your dates and we'll fit your fittings around your trip."]]
+        .map(([ic,t,d])=>h("div",{className:"card reveal",key:t},h(Icon,{name:ic}),h("h3",null,t),h("p",null,d)))))));
+}
+
+function MapPlate(){
+  return h("svg",{className:"map-fig",viewBox:"0 0 560 240",xmlns:"http://www.w3.org/2000/svg",role:"img","aria-label":"Stylised map of the Fitzrovia atelier location"},
+    h("rect",{width:560,height:240,fill:"#1f2024"}),
+    h("g",{stroke:"#34363c",strokeWidth:8},
+      h("line",{x1:0,y1:70,x2:560,y2:50}),h("line",{x1:0,y1:170,x2:560,y2:190}),
+      h("line",{x1:150,y1:0,x2:120,y2:240}),h("line",{x1:360,y1:0,x2:400,y2:240})),
+    h("g",{stroke:"#2b2d32",strokeWidth:3},
+      h("line",{x1:0,y1:120,x2:560,y2:120}),h("line",{x1:260,y1:0,x2:250,y2:240})),
+    h("circle",{cx:280,cy:120,r:30,fill:"none",stroke:"#a97d3e",strokeWidth:1.5,opacity:.5}),
+    h("circle",{cx:280,cy:120,r:9,fill:"#a97d3e"}),
+    h("path",{d:"M280 103 a12 12 0 0 1 12 12 c0 9 -12 20 -12 20 s-12 -11 -12 -20 a12 12 0 0 1 12 -12 z",fill:"#a97d3e"}),
+    h("circle",{cx:280,cy:115,r:4,fill:"#1f2024"}),
+    h("text",{x:300,y:118,fill:"#e7e2d6",fontFamily:"Jost, sans-serif",fontSize:13,letterSpacing:"2"},"Tottenham Court Rd"),
+    h("text",{x:300,y:136,fill:"#86857c",fontFamily:"Jost, sans-serif",fontSize:11},"Fitzrovia · W1T 2EW"));
+}
+
+/* ---------------- shared CTA band ---------------- */
+function CTABand({go}){
+  return h("section",{className:"sec cta-band"},h("div",{className:"wrap cta-inner"},
+    h("span",{className:"eyebrow",style:{marginBottom:"1.2rem",display:"block"}},"Begin a commission"),
+    h("h2",null,"Your next suit starts with a conversation."),
+    h("p",null,"Book a first fitting at our Fitzrovia atelier, or call us to talk it through. No pressure — just good advice and a tape measure."),
+    h("div",{style:{display:"flex",gap:".9rem",marginTop:"2rem",flexWrap:"wrap",justifyContent:"center"}},
+      h("a",{className:"btn btn-brass",onClick:()=>go("book")},"Book a Fitting"),
+      h("a",{className:"btn btn-ghost",style:{color:"#e7e2d6"},href:"tel:+447916690013"},"Call +44 7916 690013"))));
+}
+
+/* ---------------- app shell + routing ---------------- */
+const ROUTES={home:Home,craft:Craft,services:Services,lookbook:Lookbook,book:Book};
+function App(){
+  const [route,setRoute]=useState(()=>{const hwish=location.hash.replace("#","");return ROUTES[hwish]?hwish:"home";});
+  function go(r){setRoute(r);try{location.hash=r;}catch(e){}window.scrollTo({top:0,behavior:"instant"in document.documentElement.style?"instant":"auto"});}
+  useEffect(()=>{
+    const on=()=>{const r=location.hash.replace("#","");setRoute(ROUTES[r]?r:"home");window.scrollTo(0,0);};
+    window.addEventListener("hashchange",on);return ()=>window.removeEventListener("hashchange",on);
+  },[]);
+  const Page=ROUTES[route]||Home;
+  return h(Fragment,null,
+    h(Header,{route,go}),
+    h("main",null,h(Page,{go})),
+    h(Footer,{go}));
+}
+ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+
+</body></html>
