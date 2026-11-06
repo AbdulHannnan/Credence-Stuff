@@ -1,6 +1,8 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <meta name="claude:viewport-fit-sides" content="cover">
 <title>Credence Stuff</title>
+<link rel="icon" href="images/logo.jpg">
+<link rel="apple-touch-icon" href="images/logo.jpg">
 <style>
 /* Layout concept: editorial bespoke-tailoring site — ink cloth, chalk ivory, a single brass accent;
    asymmetric columns, chalk-line rules, SVG fabric artwork, numbered process as real sequence. */
@@ -20,6 +22,7 @@
   --card-line:var(--line);
   --header-bg:rgba(244,241,234,.86);
   --shadow:0 1px 2px rgba(26,27,30,.06), 0 10px 30px rgba(26,27,30,.07);
+  --logo-filter:none; --logo-blend:multiply;
   color-scheme:light;
   --serif:"Cormorant Garamond", "Hoefler Text", Georgia, "Times New Roman", serif;
   --sans:"Jost", "Helvetica Neue", Arial, system-ui, sans-serif;
@@ -35,6 +38,7 @@
     --card-line:#34363c;
     --header-bg:rgba(20,21,24,.86);
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px rgba(0,0,0,.5);
+    --logo-filter:invert(1); --logo-blend:screen;
     color-scheme:dark;
   }
 }
@@ -47,6 +51,7 @@
   --card-line:#34363c;
   --header-bg:rgba(20,21,24,.86);
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px rgba(0,0,0,.5);
+  --logo-filter:invert(1); --logo-blend:screen;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -72,7 +77,8 @@ p{margin:0}
 .hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--header-bg);backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid var(--line)}
 .hd-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:76px}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--fg);cursor:pointer;background:none;border:0;padding:0}
-.brand-mark{width:34px;height:34px;flex:none}
+.brand-mark{height:40px;width:auto;flex:none;display:block;filter:var(--logo-filter,none);mix-blend-mode:var(--logo-blend,multiply)}
+@media(max-width:560px){.brand-mark{height:34px}}
 .brand-name{font-family:var(--serif);font-size:1.5rem;letter-spacing:.02em;line-height:1}
 .brand-sub{display:block;font-family:var(--sans);font-size:.56rem;letter-spacing:.34em;text-transform:uppercase;color:var(--fg-soft);margin-top:.25em}
 .nav{display:flex;align-items:center;gap:2px}
@@ -232,6 +238,7 @@ section{position:relative}
 .ft-links{display:flex;flex-direction:column;gap:.7rem;font-size:.92rem}
 .ft-links a{cursor:pointer}
 .ft .brand-name{color:var(--chalk)}
+.ft .brand-mark{filter:invert(1);mix-blend-mode:screen;height:46px}
 .ft-blurb{font-size:.94rem;max-width:34ch;margin-top:1.2rem}
 .ft-bottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid #34363c;margin-top:3rem;padding-block:1.6rem;font-size:.78rem;color:#86857c}
 .ft-mark{display:flex;align-items:center;gap:.7rem}
@@ -388,14 +395,9 @@ const fabDefs={
 
 /* ---------------- shared layout ---------------- */
 const NAV=[["home","Home"],["craft","Our Craft"],["services","Services"],["lookbook","Lookbook"],["book","Book Appointment"]];
-const BRASS="#a97d3e";
 
-function Logo({size=34}){
-  return h("svg",{className:"brand-mark",width:size,height:size,viewBox:"0 0 40 40",xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true"},
-    h("rect",{x:1,y:1,width:38,height:38,rx:1,fill:"none",stroke:BRASS,strokeWidth:1.3}),
-    h("path",{d:"M20 7 L31 13 V27 L20 33 L9 27 V13 Z",fill:"none",stroke:"currentColor",strokeWidth:1.2,opacity:.8}),
-    h("path",{d:"M20 7 V33 M9 13 L31 27 M31 13 L9 27",stroke:BRASS,strokeWidth:.8,opacity:.5}),
-    h("text",{x:20,y:25,textAnchor:"middle",fontFamily:"Cormorant Garamond, serif",fontSize:16,fill:"currentColor",fontStyle:"italic"},"C"));
+function Logo(){
+  return h("img",{className:"brand-mark",src:"images/logo.jpg",alt:"Credence Stuff",width:140,height:51});
 }
 
 function Header({route,go}){
@@ -406,7 +408,6 @@ function Header({route,go}){
       h("button",{className:"brand",onClick:()=>go("home"),"aria-label":"Credence Stuff home"},
         h(Logo,null),
         h("span",null,
-          h("span",{className:"brand-name"},"Credence Stuff"),
           h("span",{className:"brand-sub"},"Bespoke Tailors · London"))),
       h("nav",{className:"nav"},
         NAV.slice(0,4).map(([id,label])=>h("a",{key:id,className:route===id?"active":"",onClick:()=>go(id)},label))),
@@ -422,7 +423,7 @@ function Footer({go}){
     h("div",{className:"wrap"},
       h("div",{className:"ft-grid"},
         h("div",null,
-          h("div",{className:"ft-mark"},h(Logo,null),h("span",{className:"brand-name"},"Credence Stuff")),
+          h("div",{className:"ft-mark"},h(Logo,null)),
           h("p",{className:"ft-blurb"},"Made-to-measure and bespoke suiting, cut and finished for the way you live and work. By appointment on Tottenham Court Road.")),
         h("div",null,h("h4",null,"Visit"),
           h("div",{className:"ft-links"},
